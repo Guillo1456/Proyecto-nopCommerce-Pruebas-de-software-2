@@ -12,20 +12,27 @@ Postman V1.29.3
 Cypress
 
 -Tener instalado node.js
+
 -En la terminal de visual le damos a install **npm install cypress --save.dev**
+
 -Luego ingresamos **npx cypress open** para abrir cypress
+
 -Luego le damos a **E2E Testing**
+
 -Luego seleccionamos el navegador **Electron** ya que google y edge no nos iniciaron la pagina
 
 Katalon Recorder
 
 -Abrimos en el navegador google las extensiones e instalamos Katalon Recorder
+
 -Abrimos la extensión y ya podemos hacer las pruebas, después de crear un Test Suite donde almacenaremos las pruebas.
 
 Postman
 
 -Buscamos Postman y descargamos la versión de nuestro sistema operativo
+
 -Instalamos la versión e iniciamos sesión
+
 -Creamos una colección para almacenar las pruebas.
 
 ------ JIRA ------
