@@ -38,3 +38,5 @@ Postman
 ------ JIRA ------
 
 En JIRA se almacenaron todas las historias de usuario, las cuales fueron probadas con las 3 herramientas ya mencionadas.
+
+https://ucompensar-team-a57mzzkf.atlassian.net/jira/software/projects/PROYEC/boards/3/backlog?epics=visible&atlOrigin=eyJpIjoiZTI0ZDZiOGFlYjg5NGFhMWIxY2QyODdkZDQ4Y2VmYzMiLCJwIjoiaiJ9
