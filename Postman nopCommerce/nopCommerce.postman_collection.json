@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "cf2f73a6-bb6b-4969-a13a-5b8708f50d63",
+		"name": "nopCommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49116233",
+		"_collection_link": "https://guilloleonandres-9875476.postman.co/workspace/Guillermo-Le%25C3%25B3n's-Workspace~4348862c-3744-4e91-8241-49d70f378e5b/collection/49116233-cf2f73a6-bb6b-4969-a13a-5b8708f50d63?action=share&source=collection_link&creator=49116233"
+	},
+	"item": [
+		{
+			"name": "POST-001",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const htmlResponse = pm.response.text();\r",
+							"\r",
+							"\r",
+							"const tokenRegex = /name=\"__RequestVerificationToken\" type=\"hidden\" value=\"([^\"]*)\"/i;\r",
+							"\r",
+							"const match = htmlResponse.match(tokenRegex);\r",
+							"\r",
+							"if (match && match[1]) {\r",
+							"    const verificationToken = match[1];\r",
+							"    pm.environment.set(\"CSRF_Token\", verificationToken);\r",
+							"    console.log(\"Token CSRF extraído y guardado:\", verificationToken);\r",
+							"\r",
+							"    pm.test(\"Token CSRF extraído correctamente\", function () {\r",
+							"        pm.expect(verificationToken).to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"} else {\r",
+							"    pm.test(\"¡ERROR! No se pudo encontrar el Token CSRF en la respuesta.\", function () {\r",
+							"        pm.expect(match).to.be.ok;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.nopcommerce.com/register?returnUrl=%2F",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"nopcommerce",
+						"com"
+					],
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "returnUrl",
+							"value": "%2F"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-002",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const htmlResponse = pm.response.text();\r",
+							"\r",
+							"\r",
+							"const tokenRegex = /name=\"__RequestVerificationToken\" type=\"hidden\" value=\"([^\"]*)\"/i;\r",
+							"\r",
+							"const match = htmlResponse.match(tokenRegex);\r",
+							"\r",
+							"if (match && match[1]) {\r",
+							"    const verificationToken = match[1];\r",
+							"    pm.environment.set(\"CSRF_Token\", verificationToken);\r",
+							"\r",
+							"    pm.test(\"✅ Token CSRF extraído correctamente\", function () {\r",
+							"        pm.expect(verificationToken).to.be.a('string').and.to.have.lengthOf.at.least(10);\r",
+							"    });\r",
+							"\r",
+							"} else {\r",
+							"    pm.test(\"❌ ERROR: No se pudo encontrar el Token CSRF en la respuesta.\", function () {\r",
+							"        pm.expect(match).to.be.ok;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.nopcommerce.com/login?returnUrl=%2F",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"nopcommerce",
+						"com"
+					],
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "returnUrl",
+							"value": "%2F"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-003",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const $ = cheerio.load(pm.response.text());\r",
+							"\r",
+							"let featuredProducts = [];\r",
+							"\r",
+							"\r",
+							"$('.product-grid.home-page-product-grid .product-item').each((index, element) => {\r",
+							"    const title = $(element).find('.product-title a').text().trim();\r",
+							"\r",
+							"    const price = $(element).find('.price.actual-price').text().trim();\r",
+							"\r",
+							"    if (title && price) {\r",
+							"        featuredProducts.push({\r",
+							"            name: title,\r",
+							"            price: price\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"console.log(\"--- Productos Destacados ---\");\r",
+							"console.log(featuredProducts);\r",
+							"\r",
+							"pm.test(\"Se encontraron productos destacados\", function () {\r",
+							"    pm.expect(featuredProducts.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"if (featuredProducts.length > 0) {\r",
+							"    pm.environment.set(\"first_featured_product_name\", featuredProducts[0].name);\r",
+							"    console.log(`Guardado en entorno: ${featuredProducts[0].name}`);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.nopcommerce.com/",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"nopcommerce",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
