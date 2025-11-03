@@ -2,11 +2,13 @@
 El proyecto de nopCommecer trata de distintas historias y pruebas de usuario, en la cual se testean distintas funciones de la pagina web nopCommerce.
 
 ------ HERRAMIENTAS UTILIZADAS ------
+
 Katalon Recorder V7.1.0
 Cypress V15.5.0
 Postman V1.29.3
 
 ------ INSTALACIÓN PASO A PASO ------
+
 Cypress
 -Tener instalado node.js
 -En la terminal de visual le damos a install **npm install cypress --save.dev**
@@ -24,4 +26,5 @@ Postman
 -Creamos una colección para almacenar las pruebas.
 
 ------ JIRA ------
+
 En JIRA se almacenaron todas las historias de usuario, las cuales fueron probadas con las 3 herramientas ya mencionadas.
