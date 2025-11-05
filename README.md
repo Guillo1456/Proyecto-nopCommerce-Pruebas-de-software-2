@@ -4,7 +4,9 @@ El proyecto de nopCommecer trata de distintas historias y pruebas de usuario, en
 ------ HERRAMIENTAS UTILIZADAS ------
 
 Katalon Recorder V7.1.0
+
 Cypress V15.5.0
+
 Postman V1.29.3
 
 ------ INSTALACIÓN PASO A PASO ------
